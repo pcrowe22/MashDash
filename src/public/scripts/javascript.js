@@ -119,15 +119,20 @@
                         var albumTag = document.createElement("p");
                         var artTag = document.createElement("p");
                         var previewTag = document.createElement("p");
+                        var urlTag = document.createElement("a");
+
+                        urlTag.setAttribute('href', tracks[i].external_urls.spotify);
+                        urlTag.setAttribute('target', '_blank');
 
                         nameTag.innerHTML = tracks[i].name;
                         artistTag.innerHTML = tracks[i].artists[0].name;
                         albumTag.innerHTML = tracks[i].album.name;
                         artTag.innerHTML = tracks[i].album.images[0]
                         previewTag.innerHTML = tracks[i].preview_url;
+                        urlTag.innerHTML = "Open in Spotify";
 
                         for (var j=1; j<tracks[i].artists.length; j++) {
-                            artistTag.innerHTML = artistTag.innerHTML + ',' + tracks[i].artists[j].name;
+                            artistTag.innerHTML = artistTag.innerHTML + ', ' + tracks[i].artists[j].name;
                         }
 
                         innerDiv.appendChild(nameTag);
@@ -135,6 +140,7 @@
                         innerDiv.appendChild(albumTag);
                         innerDiv.appendChild(artTag);
                         innerDiv.appendChild(previewTag);
+                        innerDiv.appendChild(urlTag);
                     }
                 }
             });
