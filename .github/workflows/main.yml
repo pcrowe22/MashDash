@@ -41,8 +41,7 @@ jobs:
       - name: install selenium webdriver
         run: npm install selenium-webdriver
   
-  chrome-test:
-    steps:
+      # Runs desired tests
       -name: Execute chromeTest.js
       run: node ../../src/tests/chromeTest.js
 
