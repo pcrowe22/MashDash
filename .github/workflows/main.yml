@@ -40,3 +40,9 @@ jobs:
       # Installs selenium-webdriver on container
       - name: install selenium webdriver
         run: npm install selenium-webdriver
+  
+  chrome-test:
+    steps:
+      -name: Execute chromeTest.js
+      run: node ../../src/tests/chromeTest.js
+
