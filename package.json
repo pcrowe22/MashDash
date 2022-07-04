@@ -10,5 +10,8 @@
     "querystring": "~0.2.0",
     "request": "~2.83.0",
     "selenium-webdriver": "^4.3.0"
+  },
+  "scripts": {
+    "test": "node src/tests/chromeTest.js"
   }
 }
