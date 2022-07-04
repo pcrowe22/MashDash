@@ -36,5 +36,7 @@ jobs:
         with:
           # The chromedriver version to install
           chromedriver-version: 103.0.5060.53
-      - name: test-chromedriver
-        run: chromedriver
+          
+      # Installs selenium-webdriver on container
+      - name: install selenium webdriver
+        run: npm install selenium-webdriver
