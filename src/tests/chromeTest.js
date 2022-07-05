@@ -10,7 +10,7 @@ const driver = new webdriver.Builder()
     .forBrowser('chrome')
     .setChromeOptions(opts)
     .build();
-/*driver.get('http://www.google.com').then(function(){
+driver.get('http://www.google.com').then(function(){
 driver.findElement(webdriver.By.name('q')).sendKeys('webdriver\n').then(function(){
     driver.getTitle().then(function(title) {
       console.log(title)
@@ -22,4 +22,4 @@ driver.findElement(webdriver.By.name('q')).sendKeys('webdriver\n').then(function
      driver.quit();
     });
   });
-});*/
+});
