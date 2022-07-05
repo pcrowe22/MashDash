@@ -40,6 +40,7 @@ jobs:
       # Installs selenium-webdriver on container
       - name: install selenium webdriver
         run: npm install selenium-webdriver
+             npm audit fix --force
   
       # Runs desired tests
       - name: Execute chromeTest.js
