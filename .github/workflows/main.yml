@@ -44,7 +44,7 @@ jobs:
         uses: nanasess/setup-chromedriver@v1.0.7
         with:
           # The chromedriver version to install
-          chromedriver-version: latest
+          chromedriver-version: ''
           
       # Installs selenium-webdriver on container
       - name: install selenium webdriver
