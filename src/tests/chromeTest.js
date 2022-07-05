@@ -25,7 +25,7 @@ driver.get('localhost:8888').then(function(){
      driver.quit();
     });
   });*/
-    String actualTitle = driver.getTitle();
-    String targetTitle = 'MashDash';
+    var actualTitle = driver.getTitle();
+    var targetTitle = 'MashDash';
     assert.equal(actualTitle, targetTitle);
 });
