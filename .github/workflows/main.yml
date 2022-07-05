@@ -43,6 +43,5 @@ jobs:
   
       # Runs desired tests
       - name: Execute chromeTest.js
-        run: ls src
-             # node src/app.js
+        run: ls src/tests
 
