@@ -1,4 +1,4 @@
-const webdriver = require('selenium-webdriver'),
+/*const webdriver = require('selenium-webdriver'),
     By = webdriver.By,
     until = webdriver.until;
 
@@ -17,4 +17,4 @@ driver.findElement(webdriver.By.name('q')).sendKeys('webdriver\n').then(function
      driver.quit();
     });
   });
-});
+});*/
