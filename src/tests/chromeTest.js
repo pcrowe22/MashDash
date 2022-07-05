@@ -4,7 +4,7 @@ const webdriver = require('selenium-webdriver'),
 
 const chrome = require('selenium-webdriver/chrome');
 let opts = new chrome.Options();
-opts.headless = true;
+opts.headless();
 
 const driver = new webdriver.Builder()
     .forBrowser('chrome')
