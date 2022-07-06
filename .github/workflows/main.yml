@@ -54,5 +54,7 @@ jobs:
   
       # Runs desired tests
       - name: Execute chromeTest.js
-        run: node src/tests/chromeTest.js
+        run: |
+          node src/app.js &
+          node src/tests/chromeTest.js
 
