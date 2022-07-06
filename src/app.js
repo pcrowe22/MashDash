@@ -46,7 +46,8 @@ app.use(express.static(__dirname + '/public'))
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
-  res.cookie(stateKey, state);
+
+  //res.cookie(stateKey, state);
 
   // your application requests authorization
 
@@ -69,8 +70,12 @@ app.get('/callback', function(req, res) {
   // after checking the state parameter
 
   var code = req.query.code || null;
-  var state = req.query.state || null;
+  /*var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
+
+  console.log("Cookies: " + req.cookies[stateKey]);
+  console.log("State: " + state);
+  console.log("Stored state: " + storedState);
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
@@ -78,7 +83,7 @@ app.get('/callback', function(req, res) {
         error: 'state_mismatch'
       }));
   } else {
-    res.clearCookie(stateKey);
+    res.clearCookie(stateKey);*/
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
       form: {
@@ -105,10 +110,6 @@ app.get('/callback', function(req, res) {
           json: true
         };
 
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
 
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
@@ -123,7 +124,7 @@ app.get('/callback', function(req, res) {
           }));
       }
     });
-  }
+  //}
 });
 
 app.get('/refresh_token', function(req, res) {
@@ -235,6 +236,7 @@ app.get('/recommendation', function(req, res) {
         target_valence: ''*/
     });
     console.log(url_query);
+    console.log("Artists: " + artists);
     var options = {
         url: url_query,
         headers: { 'Authorization': 'Bearer ' + access_token },
