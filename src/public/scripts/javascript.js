@@ -84,7 +84,7 @@
           // sends access_token with /recommendation query
           document.getElementById('get-recommendation').addEventListener('click', function() {
             var artists = '';
-            var checkboxes = document.getElementsByName('artist-checkbox');
+            var checkboxes = document.getElementsByClassName('artist-checkbox');
             var checkboxesChecked = [];
   
             for (var i=0; i<checkboxes.length; i++) {
@@ -121,6 +121,7 @@
                         var previewTag = document.createElement("p");
                         var urlTag = document.createElement("a");
 
+                        nameTag.setAttribute('id', 'track' + i);
                         urlTag.setAttribute('href', tracks[i].external_urls.spotify);
                         urlTag.setAttribute('target', '_blank');
 
@@ -189,9 +190,10 @@
                     var lineBreak = document.createElement("br");
 
                     tag.setAttribute('type', 'checkbox');
-                    tag.setAttribute('name', 'artist-checkbox');
+                    tag.setAttribute('class', 'artist-checkbox');
                     tag.setAttribute('id', artists[i].id);
                     tag.setAttribute('value', artists[i].id);
+                    tag.setAttribute('name', artists[i].name);
                     label.setAttribute('for', artists[i].id);
                     label.textContent = artists[i].name;
                     div.appendChild(tag);
