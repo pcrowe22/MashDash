@@ -29,8 +29,32 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Installs chrome on container
+      - name: Setup Chrome
+      # You may pin to the exact commit or the version.
+      # uses: browser-actions/setup-chrome@4fa655aad48f56911cad16db9252399a9e592848
+        uses: browser-actions/setup-chrome@v0.0.0
+        with:
+          # The Chromium version to install and use.
+          chromium-version: latest
+
+      # Installs chromedriver on container
+      - name: setup-chromedriver
+      # You may pin to the exact commit or the version.
+        uses: nanasess/setup-chromedriver@v1.0.7
+        with:
+          # The chromedriver version to install
+          chromedriver-version: ''
+          
+      # Installs selenium-webdriver on container
+      - name: install selenium webdriver
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          npm install selenium-webdriver
+          npm audit fix --force
+  
+      # Runs desired tests
+      - name: Execute chromeTest.js
+        run: |
+          node src/app.js &
+          node src/tests/chromeTest.js
+
