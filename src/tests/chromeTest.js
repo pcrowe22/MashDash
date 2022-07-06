@@ -7,7 +7,7 @@ const webdriver = require('selenium-webdriver'),
 // Enables headless mode, which is necessary for server environment where no GUI exists
 const chrome = require('selenium-webdriver/chrome');
 let opts = new chrome.Options();
-//opts.headless();
+opts.headless();
 opts.addArguments('window-size=1920x1080');
 
 const driver = new webdriver.Builder()
