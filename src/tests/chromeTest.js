@@ -29,11 +29,11 @@ driver.get('http://127.0.0.1:8888').then(function(){
     }).then(function() {
         return driver.findElement(webdriver.By.id("login-username"));
     }).then(function(input){
-        return input.sendKeys("pcrowe.piano@gmail.com");
+        return input.sendKeys("lithoriv@gmail.com");
     }).then(function() {
         return driver.findElement(webdriver.By.id("login-password"));
     }).then(function(input){
-        return input.sendKeys("Megalithic1");
+        return input.sendKeys("MashDash");
     }).then(function() {
         return driver.findElement(webdriver.By.id("login-button"));
     }).then(function(button){
