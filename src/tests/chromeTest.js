@@ -65,10 +65,7 @@ driver.get('http://127.0.0.1:8888').then(function(){
         .then(() => driver.wait(until.elementIsVisible(driver.findElement(By.id('track0')))))
 
         .then(() => driver.findElement(By.id('track0'))
-        .then((actualTrack) => {}
-            assert(actualTrack, "Track does not exist");
-            return;
-        })
+        .then((actualTrack) => assert(actualTrack, "Track does not exist"))
         
         // genre test
         .then(() => driver.findElements(By.name('genre-checkbox'))
@@ -78,17 +75,12 @@ driver.get('http://127.0.0.1:8888').then(function(){
         .then(() => driver.wait(until.elementIsVisible(driver.findElement(By.id('track0')))))
 
         .then(() => driver.findElement(By.id('track0'))
-        .then((actualTrack) => {}
-            assert(actualTrack, "Track does not exist");
-            return;
-        })
+        .then((actualTrack) => assert(actualTrack, "Track does not exist"))
 
         // Test passed, quit driver
         .then(() => {
             console.log("Test Successful!");
             return driver.quit();
-        }));
-    });
-    
-                         
-})
+        }))));
+//    });                       
+});
