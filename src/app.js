@@ -184,10 +184,11 @@ app.get('/recommendation', function(req, res) {
 
     // Prepare the api call
     var access_token = req.query.access_token;
-    var artists = req.query.artists
+    var artists = req.query.artists;
+    var genres = req.query.genres;
     var url_query = 'https://api.spotify.com/v1/recommendations?' + querystring.stringify({
         seed_artists: artists,
-        //seed_genres: '',
+        seed_genres: genres,
         //seed_tracks: '',
         limit: '5',
         /*max_acousticness: '',
@@ -235,8 +236,6 @@ app.get('/recommendation', function(req, res) {
         target_time_signature: '',
         target_valence: ''*/
     });
-    console.log(url_query);
-    console.log("Artists: " + artists);
     var options = {
         url: url_query,
         headers: { 'Authorization': 'Bearer ' + access_token },
@@ -246,7 +245,6 @@ app.get('/recommendation', function(req, res) {
     // Make the api call
     request.get(options, function(error, response, body) {
         if (!error && response.statusCode === 200) {
-            console.log(body);
             res.send({
                 'tracks': body.tracks,
             })
