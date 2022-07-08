@@ -28,39 +28,59 @@
         <a href="/login" class="btn btn-primary" id="login-link">Log in with Spotify</a>
       </div>
       <div id="loggedin">
-          <div id="user-profile">
-          </div>
+          <!--<div id="user-profile">
+    </div>-->
           <div id="oauth">
           </div>
-          <button class="btn btn-light" id="obtain-new-token">Obtain new token using the refresh token</button>
-          <button class="btn btn-light" id="get-favorite-artists">See your favorite artists</button>
-          <div class="container">
-              <div class="row">
-                  <div class="col bg-primary text-white" id="artist-search">
-                      <label>Artist Search</label>
-                      <input type="text" id="artist-input" placeholder="Rolling Stones" />
-                      <button class="btn btn-light" id="search-artists">Search</button>
-                      <div id="artist-list">
+          <div class="row">
+              <div class="col-auto bg-info m-1">
+                  <button class="btn btn-light" id="get-recommendation">Personalized Recommendation</button>
+                  <div id="recommended-list">
+                  </div>
+              </div>
+              <div class="col-auto m-1">
+                  <div class="row">
+                      <div class="col-auto bg-info m-1">
+                          <button class="btn btn-light" id="obtain-new-token">Obtain new token using the refresh token</button>
+                          <button class="btn btn-light" id="get-favorite-artists">See your favorite artists</button>
+                      </div>
+                      <!--Menu of tools for recommendations. Value must be given the value of the corresponding tool's index in the tool list-->
+                      <div class="col-auto bg-info m-1">
+                          <h3>Toggle Tools</h3>
+                          <input type="checkbox" name="rec-tool-checkbox" id="artist-tool-checkbox" value="0" checked />
+                          <label class="m-1">Artist Search</label>
+                          <input type="checkbox" name="rec-tool-checkbox" id="genre-tool-checkbox" value="1" checked />
+                          <label class="m-1">Genre List</label>
                       </div>
                   </div>
-                  <div class="col-auto">
-                      <h4>Genre List</h4>
-                      <div class="row" id="genre-list">
-                          <div class="col-auto" id="genre-list-col-1">
+
+                  <div class="row">
+                      <div class="col-auto bg-primary text-white" name="rec-tool" id="artist-search">
+                          <h4>Artist Search</h4>
+                          <input type="text" id="artist-input" placeholder="Rolling Stones" />
+                          <button class="btn btn-light" id="search-artists">Search</button>
+                          <div id="artist-list">
                           </div>
-                          <div class="col-auto" id="genre-list-col-2">
-                          </div>
-                          <div class="col-auto" id="genre-list-col-3">
+                      </div>
+                      <div class="col-auto" name="rec-tool" id="genre-tool">
+                          <h4>Genre List</h4>
+                          <div class="row" id="genre-list">
+                              <div class="col-auto" id="genre-list-col-1">
+                              </div>
+                              <div class="col-auto" id="genre-list-col-2">
+                              </div>
+                              <div class="col-auto" id="genre-list-col-3">
+                              </div>
                           </div>
                       </div>
                   </div>
               </div>
-              </div>
-          
-          
-          <button class="btn btn-light" id="get-recommendation">Personalized Recommendation</button>
-          <div id="recommended-list">
           </div>
+          
+          
+
+
+
       </div>
     </div>
 
