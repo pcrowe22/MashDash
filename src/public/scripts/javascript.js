@@ -65,20 +65,28 @@ if (error) {
                     var input = document.createElement("input");
                     var label = document.createElement("label");
 
+                    if (i < response.genres.length * 0.33) {
+                        genreList = document.getElementById('genre-list-col-1');
+                    } else if (i < response.genres.length * 0.66) {
+                        genreList = document.getElementById('genre-list-col-2');
+                    } else {
+                        genreList = document.getElementById('genre-list-col-3');
+                    }
+
                     input.setAttribute('type', 'checkbox');
-                    //input.setAttribute('class', 'artist-checkbox');
                     input.setAttribute('id', genres[i]);
                     input.setAttribute('value', genres[i]);
                     input.setAttribute('name', 'genre-checkbox');
+                    label.setAttribute('class', 'm-1');
                     label.setAttribute('for', genres[i]);
                     label.textContent = genres[i];
                     genreList.appendChild(input);
                     genreList.appendChild(label);
                     
-                    if ((i+1) % 3 == 0) {
+                    //if ((i+1) % 3 == 0) {
                         var lineBreak = document.createElement("br");
                         genreList.appendChild(lineBreak);
-                    }
+                    //}
                 }
             }
         })
