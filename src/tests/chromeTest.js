@@ -64,7 +64,11 @@ driver.get('http://127.0.0.1:8888').then(function(){
         .then((input) => {
             console.log("Searching artist");
             return input.click()})
-        .then(() => driver.findElement(webdriver.By.id("get-recommendation")))
+        // Script for when button needs to be scrolled to
+        .then(() => driver.findElement(By.id("get-recommendation")))
+        .then((element) => driver.executeScript("arguments[0].scrollIntoView(true);", element))
+        .then(() => driver.sleep(1000))
+        .then(() => driver.findElement(By.id("get-recommendation")))
         .then((button) => button.click())
 
         .then(() => driver.wait(until.elementLocated(By.id('track0'))))
@@ -74,9 +78,9 @@ driver.get('http://127.0.0.1:8888').then(function(){
         .then((actualTrack) => assert(actualTrack, "Track does not exist"))
 
         // Script for when button needs to be scrolled to
-        /*.then(() => driver.findElement(By.name(firstArtist)))
+        .then(() => driver.findElement(By.name(firstArtist)))
         .then((element) => driver.executeScript("arguments[0].scrollIntoView(true);", element))
-        .then(() => driver.sleep(1000))*/
+        .then(() => driver.sleep(1000))
 
         .then(() => driver.findElement(By.name(firstArtist)))
         .then((input) => input.click())
