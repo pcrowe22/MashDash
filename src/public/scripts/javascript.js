@@ -14,9 +14,9 @@ function getHashParams() {
     return hashParams;
 }
 
-var userProfileSource = document.getElementById('user-profile-template').innerHTML,
+/*var userProfileSource = document.getElementById('user-profile-template').innerHTML,
     userProfileTemplate = Handlebars.compile(userProfileSource),
-    userProfilePlaceholder = document.getElementById('user-profile');
+    userProfilePlaceholder = document.getElementById('user-profile');*/
 
 var oauthSource = document.getElementById('oauth-template').innerHTML,
     oauthTemplate = Handlebars.compile(oauthSource),
@@ -44,7 +44,7 @@ if (error) {
                 'Authorization': 'Bearer ' + access_token
             },
             success: function(response) {
-                userProfilePlaceholder.innerHTML = userProfileTemplate(response);
+                //userProfilePlaceholder.innerHTML = userProfileTemplate(response);
 
                 $('#login').hide();
                 $('#loggedin').show();
@@ -65,20 +65,28 @@ if (error) {
                     var input = document.createElement("input");
                     var label = document.createElement("label");
 
+                    if (i < response.genres.length * 0.33) {
+                        genreList = document.getElementById('genre-list-col-1');
+                    } else if (i < response.genres.length * 0.66) {
+                        genreList = document.getElementById('genre-list-col-2');
+                    } else {
+                        genreList = document.getElementById('genre-list-col-3');
+                    }
+
                     input.setAttribute('type', 'checkbox');
-                    //input.setAttribute('class', 'artist-checkbox');
                     input.setAttribute('id', genres[i]);
                     input.setAttribute('value', genres[i]);
                     input.setAttribute('name', 'genre-checkbox');
+                    label.setAttribute('class', 'm-1');
                     label.setAttribute('for', genres[i]);
                     label.textContent = genres[i];
                     genreList.appendChild(input);
                     genreList.appendChild(label);
                     
-                    if ((i+1) % 3 == 0) {
+                    //if ((i+1) % 3 == 0) {
                         var lineBreak = document.createElement("br");
                         genreList.appendChild(lineBreak);
-                    }
+                    //}
                 }
             }
         })
@@ -171,7 +179,7 @@ if (error) {
                    artistTag.innerHTML = tracks[i].artists[0].name;
                    albumTag.innerHTML = tracks[i].album.name;
                    artTag.innerHTML = tracks[i].album.images[0]
-                   previewTag.innerHTML = tracks[i].preview_url;
+                   //previewTag.innerHTML = tracks[i].preview_url;      //commented out because preview maximizes col and forces scrolling
                    urlTag.innerHTML = "Open in Spotify";
 
                    for (var j=1; j<tracks[i].artists.length; j++) {
@@ -236,6 +244,7 @@ if (error) {
                 tag.setAttribute('id', artists[i].id);
                 tag.setAttribute('value', artists[i].id);
                 tag.setAttribute('name', artists[i].name);
+                label.setAttribute('class', 'm-1');
                 label.setAttribute('for', artists[i].id);
                 label.textContent = artists[i].name;
                 div.appendChild(tag);
@@ -244,4 +253,20 @@ if (error) {
             }
         });
     }, false);
+
+    //Tool toggles
+    
+    var recToolToggles = document.getElementsByName('rec-tool-checkbox');
+    for (var i=0; i<recToolToggles.length; i++) {
+        
+        recToolToggles[i].addEventListener('click', function(event) {
+            var recTools = document.getElementsByName('rec-tool');
+
+            if (event.currentTarget.checked) {
+                $('#' + recTools[event.currentTarget.value].id).show();
+            } else {
+                $('#' + recTools[event.currentTarget.value].id).hide();
+            }
+        }, false);
+    }
 }
