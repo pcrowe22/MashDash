@@ -1,5 +1,4 @@
 const assert = require('assert');
-const scrollToElement = require('scroll-to-element');
 
 const webdriver = require('selenium-webdriver'),
     By = webdriver.By,
