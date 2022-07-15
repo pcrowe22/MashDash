@@ -129,6 +129,9 @@ if (error) {
 
         var genres = '';
         var genreCheckboxes = document.getElementsByName('genre-checkbox');
+
+        var tracks = '';
+        var trackCheckboxes = document.getElementsByClassName('track-checkbox');
   
         for (var i=0; i<artistCheckboxes.length; i++) {
             if (artistCheckboxes[i].checked) {
@@ -140,13 +143,19 @@ if (error) {
                 genres = genres + genreCheckboxes[i].id + ',';
             }
         }
+        for (var i=0; i<trackCheckboxes.length; i++) {
+            if (trackCheckboxes[i].checked) {
+                tracks = tracks + trackCheckboxes[i].id + ',';
+            }
+        }
 
         $.ajax({
             url: '/recommendation',
             data: {
                 'access_token': access_token,
                 'artists': artists,
-                'genres': genres
+                'genres': genres,
+                'tracks': tracks
             }
         }).done(function(data) {
             var tracks = data.tracks;
@@ -197,8 +206,8 @@ if (error) {
         });
     }, false);
 
-        // sends access_token and search word with /artist_search query
-        // then generates a list of checkboxes that the user can choose to include in their recommendation seed
+    // sends access_token and search word with /artist_search query
+    // then generates a list of checkboxes that the user can choose to include in their recommendation seed
     document.getElementById('search-artists').addEventListener('click', function() {
         var input = document.getElementById('artist-input').value;
         var lastSearch = document.getElementById('artist-list');
@@ -269,4 +278,60 @@ if (error) {
             }
         }, false);
     }
+
+    // sends access_token and search word with /artist_search query
+    // then generates a list of checkboxes that the user can choose to include in their recommendation seed
+    document.getElementById('search-tracks').addEventListener('click', function() {
+        var input = document.getElementById('track-input').value;
+        var lastSearch = document.getElementById('track-list');
+    
+        for (var i=0; i<lastSearch.children.length; i += 3) {
+            if (!lastSearch.children[i].checked) {
+                for (var j=0; j<3; j++) {
+                    lastSearch.children[i].remove();
+                }
+                i -= 3;
+            }
+        }
+
+        $.ajax({
+            url: '/track_search',
+            data: {
+                'access_token': access_token,
+                'input': input
+            }
+        }).done(function(data) {
+            var tracks = data.items;
+            var div = document.getElementById("track-list");
+
+            for (var i=0; i<tracks.length; i++) {    
+                var unique = true;
+
+                for (var j=0; j<div.children.length; j++) {
+                    if (tracks[i].id == div.children[j].getAttribute('id')) {
+                        unique = false;
+                        break;
+                    }
+                }
+                if (!unique) {
+                    continue;
+                }
+            
+                var tag = document.createElement("input");
+                var label = document.createElement("label");
+                var lineBreak = document.createElement("br");
+
+                tag.setAttribute('type', 'checkbox');
+                tag.setAttribute('class', 'track-checkbox');
+                tag.setAttribute('id', tracks[i].id);
+                tag.setAttribute('name', tracks[i].name);
+                label.setAttribute('class', 'm-1');
+                label.setAttribute('for', tracks[i].id);
+                label.textContent = tracks[i].name + " by " + tracks[i].artists[0].name;
+                div.appendChild(tag);
+                div.appendChild(label);
+                div.appendChild(lineBreak);
+            }
+        });
+    }, false);
 }

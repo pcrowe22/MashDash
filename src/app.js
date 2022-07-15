@@ -156,7 +156,7 @@ app.get('/favorite', function (req, res) {
   var access_token = req.query.access_token;
   var options = {
     // MODIFYING THE URL ENDPOINT CHANGES WHAT DATA IS LOGGED TO CONSOLE
-    url: 'https://api.spotify.com/v1/me/top/artists',
+    url: 'https://api.spotify.com/v1/users/acrowe4234/playlists',
     headers: { 'Authorization': 'Bearer ' + access_token },
     json: true
   };
@@ -164,7 +164,7 @@ app.get('/favorite', function (req, res) {
   // use the access token to access the Spotify Web API
   request.get(options, function(error, response, body) {
     if (!error && response.statusCode === 200) {
-      console.log(body.items[0]);
+      console.log(body); //.items[0]);
     } else if (response.statusCode === 401) {
       res.redirect('/#' + querystring.stringify({
         error: 'not_authorized'
@@ -186,10 +186,11 @@ app.get('/recommendation', function(req, res) {
     var access_token = req.query.access_token;
     var artists = req.query.artists;
     var genres = req.query.genres;
+    var tracks = req.query.tracks;
     var url_query = 'https://api.spotify.com/v1/recommendations?' + querystring.stringify({
         seed_artists: artists,
         seed_genres: genres,
-        //seed_tracks: '',
+        seed_tracks: tracks,
         limit: '5',
         /*max_acousticness: '',
         max_danceability: '',
@@ -274,6 +275,34 @@ app.get('/artist_search', function(req, res) {
         if (!error && response.statusCode === 200 && body.artists.items[0]) {
             res.send({
                 'items': body.artists.items
+            });
+            
+        } else {
+            res.redirect('/#' + querystring.stringify({
+                error: 'invalid_token'
+            }));
+        }
+    })
+});
+
+app.get('/track_search', function(req, res) {
+    var access_token = req.query.access_token;
+    var input = req.query.input;
+    var url_query = 'https://api.spotify.com/v1/search?' + querystring.stringify({
+        q: input,
+        type: 'track',
+        limit: '10'
+    });
+    var options = {
+        url: url_query,
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        json: true
+    };
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200 && body.tracks.items[0]) {
+            res.send({
+                'items': body.tracks.items
             });
             
         } else {

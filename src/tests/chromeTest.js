@@ -45,6 +45,7 @@ driver.get('http://127.0.0.1:8888').then(function(){
     //test artist search
     .then(function() {
         var firstArtist = "Foo Fighters";
+        var song = "Say It Ain't So";
 
         console.log("Logged In");
 
@@ -91,6 +92,36 @@ driver.get('http://127.0.0.1:8888').then(function(){
             console.log("Genre test");
             return inputs[0].click();
         })
+
+        .then(() => driver.wait(until.elementLocated(By.id('track0'))))
+        .then(() => driver.wait(until.elementIsVisible(driver.findElement(By.id('track0')))))
+
+        .then(() => driver.findElement(By.id('track0')))
+        .then((actualTrack) => assert(actualTrack, "Track does not exist"))
+
+        //track Test
+        // Script for when button needs to be scrolled to
+        .then(() => driver.findElement(By.id('track-input')))
+        .then((element) => driver.executeScript("arguments[0].scrollIntoView(true);", element))
+        .then(() => driver.sleep(1000))
+
+        .then(() => driver.findElement(By.id('track-input')))
+        .then((input) => input.sendKeys(song))     
+        .then(() => driver.findElement(By.id("search-tracks")))
+        .then((button) => button.click())
+
+        .then(() => driver.wait(until.elementLocated(By.name(song))))
+        .then(() => driver.wait(until.elementIsVisible(driver.findElement(By.name(song)))))
+
+        .then(() => driver.findElement(By.name(song)))
+        .then((input) => input.click())
+
+        // Script for when button needs to be scrolled to
+        .then(() => driver.findElement(By.id("get-recommendation")))
+        .then((element) => driver.executeScript("arguments[0].scrollIntoView(true);", element))
+        .then(() => driver.sleep(1000))
+        .then(() => driver.findElement(By.id("get-recommendation")))
+        .then((button) => button.click())
 
         .then(() => driver.wait(until.elementLocated(By.id('track0'))))
         .then(() => driver.wait(until.elementIsVisible(driver.findElement(By.id('track0')))))
