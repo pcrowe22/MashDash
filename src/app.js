@@ -187,13 +187,16 @@ app.get('/recommendation', function(req, res) {
     var artists = req.query.artists;
     var genres = req.query.genres;
     var tracks = req.query.tracks;
+    var max_acousticness = req.query.max_acousticness;
+    var min_acousticness = req.query.min_acousticness;
+    var tar_acousticness = req.query.tar_acousticness;
     var url_query = 'https://api.spotify.com/v1/recommendations?' + querystring.stringify({
         seed_artists: artists,
         seed_genres: genres,
         seed_tracks: tracks,
         limit: '5',
-        /*max_acousticness: '',
-        max_danceability: '',
+        max_acousticness: max_acousticness,
+        /*max_danceability: '',
         max_duration_ms: '',
         max_energy: '',
         max_instrumentalness: '',
@@ -205,10 +208,10 @@ app.get('/recommendation', function(req, res) {
         max_speechiness: '',
         max_tempo: '',
         max_time_signature: '',
-        max_valence: '',
+        max_valence: '',*/
 
-        min_acousticness: '',
-        min_danceability: '',
+        min_acousticness: min_acousticness,
+        /*min_danceability: '',
         min_duration_ms: '',
         min_energy: '',
         min_instrumentalness: '',
@@ -220,10 +223,10 @@ app.get('/recommendation', function(req, res) {
         min_speechiness: '',
         min_tempo: '',
         min_time_signature: '',
-        min_valence: '',
+        min_valence: '',*/
 
-        target_acousticness: '',
-        target_danceability: '',
+        target_acousticness: tar_acousticness,
+        /*target_danceability: '',
         target_duration_ms: '',
         target_energy: '',
         target_instrumentalness: '',

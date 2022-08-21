@@ -53,13 +53,16 @@
                           <label class="m-1">Artist Search</label>
                           <input type="checkbox" name="rec-tool-checkbox" id="genre-tool-checkbox" value="2" checked />
                           <label class="m-1">Genre List</label>
+                          <input type="checkbox" name="rec-tool-checkbox" id="acousticness-tool-checkbox" value="3" checked />
+                          <label class="m-1">Acousticness Scales</label>
                       </div>
                   </div>
 
+                  <!-- Here the actual tool displays are defined -->
                   <div class="row">
                       <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="track-search">
                           <h4>Track Search</h4>
-                          <input type="text" id="track-input" placeholder="Paint It Black" />
+                          <input type="text" id="track-input" placeholder="Paint It, Black" />
                           <button class="btn btn-light" id="search-tracks">Search</button>
                           <div id="track-list">
                           </div>
@@ -81,6 +84,17 @@
                               <div class="col-auto" id="genre-list-col-3">
                               </div>
                           </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="acousticness-tool">
+                          <h4>Min/Max/Target Acousticness</h4>
+                          <label class="m-1">Min Acousticness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_acousticness" />
+                          <label class="m-1">Max Acousticness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_acousticness" />
+                          <label class="m-1">Target Acousticness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_acousticness" />
                       </div>
                   </div>
               </div>
