@@ -133,9 +133,17 @@ if (error) {
         var tracks = '';
         var trackCheckboxes = document.getElementsByClassName('track-checkbox');
 
-        var max_acousticness_scale = document.getElementById('max_acousticness');
-        var min_acousticness_scale = document.getElementById('min_acousticness');
-        var tar_acousticness_scale = document.getElementById('tar_acousticness');
+        var scalars = [];
+        var scalarNames = ['acousticness', 'danceability', 'duration_ms', 'energy', 'instrumentalness', 'key', 'liveness', 'loudness', 'mode', 'popularity', 'speechiness', 'tempo', 'time_signature', 'valence'];
+        var scalarCheckboxes = document.getElementsByClassName('scalar-checkbox');
+        for (var i=0; i<scalarCheckboxes.length; i++) {
+            if (scalarCheckboxes[i].checked) {
+                var scalarMin = document.getElementById('min_' + scalarNames[i]).value;
+                var scalarMax = document.getElementById('max_' + scalarNames[i]).value;
+                var scalarTar = document.getElementById('tar_' + scalarNames[i]).value;
+                scalars[i] = [scalarMin, scalarMax, scalarTar];
+            }
+        }
   
         for (var i=0; i<artistCheckboxes.length; i++) {
             if (artistCheckboxes[i].checked) {
@@ -162,9 +170,7 @@ if (error) {
                 'artists': artists,
                 'genres': genres,
                 'tracks': tracks,
-                'max_acousticness': max_acousticness_scale.value,
-                'min_acousticness': min_acousticness_scale.value,
-                'tar_acousticness': tar_acousticness_scale.value
+                'scalars': scalars,
             }
         // here all the recommended tracks are configured for how they are to be displayed
         }).done(function(data) {

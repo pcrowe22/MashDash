@@ -187,15 +187,16 @@ app.get('/recommendation', function(req, res) {
     var artists = req.query.artists;
     var genres = req.query.genres;
     var tracks = req.query.tracks;
-    var max_acousticness = req.query.max_acousticness;
-    var min_acousticness = req.query.min_acousticness;
-    var tar_acousticness = req.query.tar_acousticness;
-    var url_query = 'https://api.spotify.com/v1/recommendations?' + querystring.stringify({
-        seed_artists: artists,
-        seed_genres: genres,
-        seed_tracks: tracks,
-        limit: '5',
-        max_acousticness: max_acousticness,
+    var scalars = req.query.scalars;
+    var scalarNames = ['acousticness', 'danceability', 'duration_ms', 'energy', 'instrumentalness', 'key', 'liveness', 'loudness', 'mode', 'popularity', 'speechiness', 'tempo', 'time_signature', 'valence'];
+
+    // Make the URL object for stringifying
+    var url_query = new URL('https://api.spotify.com/v1/recommendations?');
+    url_query.searchParams.append('seed_artists', artists);
+    url_query.searchParams.append('seed_genres', genres);
+    url_query.searchParams.append('seed_tracks', tracks);
+    url_query.searchParams.append('limit', '5');
+
         /*max_danceability: '',
         max_duration_ms: '',
         max_energy: '',
@@ -210,7 +211,6 @@ app.get('/recommendation', function(req, res) {
         max_time_signature: '',
         max_valence: '',*/
 
-        min_acousticness: min_acousticness,
         /*min_danceability: '',
         min_duration_ms: '',
         min_energy: '',
@@ -225,7 +225,6 @@ app.get('/recommendation', function(req, res) {
         min_time_signature: '',
         min_valence: '',*/
 
-        target_acousticness: tar_acousticness,
         /*target_danceability: '',
         target_duration_ms: '',
         target_energy: '',
@@ -239,7 +238,17 @@ app.get('/recommendation', function(req, res) {
         target_tempo: '',
         target_time_signature: '',
         target_valence: ''*/
-    });
+
+    if (scalars != null) {
+        for (var i=0; i<scalars.length; i++) {
+            if (scalars[i] != []) {
+                url_query.searchParams.append('min_' + scalarNames[i], scalars[i][0]);
+                url_query.searchParams.append('max_' + scalarNames[i], scalars[i][1]);
+                url_query.searchParams.append('tar_' + scalarNames[i], scalars[i][2]);
+            }
+        }
+    }
+
     var options = {
         url: url_query,
         headers: { 'Authorization': 'Bearer ' + access_token },

@@ -53,8 +53,10 @@
                           <label class="m-1">Artist Search</label>
                           <input type="checkbox" name="rec-tool-checkbox" id="genre-tool-checkbox" value="2" checked />
                           <label class="m-1">Genre List</label>
-                          <input type="checkbox" name="rec-tool-checkbox" id="acousticness-tool-checkbox" value="3" checked />
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="acousticness-tool-checkbox" value="3" checked />
                           <label class="m-1">Acousticness Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="danceability-tool-checkbox" value="3" checked />
+                          <label class="m-1">Danceability Scales</label>
                       </div>
                   </div>
 
@@ -95,6 +97,15 @@
                           <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_acousticness" />
                           <label class="m-1">Target Acousticness</label>
                           <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_acousticness" />
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="danceability-tool">
+                          <h4>Min/Max/Target Danceability</h4>
+                          <label class="m-1">Min Danceability</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_danceability" />
+                          <label class="m-1">Max Danceability</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_danceability" />
+                          <label class="m-1">Target Danceability</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_danceability" />
                       </div>
                   </div>
               </div>
