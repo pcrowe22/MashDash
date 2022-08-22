@@ -132,6 +132,18 @@ if (error) {
 
         var tracks = '';
         var trackCheckboxes = document.getElementsByClassName('track-checkbox');
+
+        var scalars = [];
+        var scalarNames = ['acousticness', 'danceability', 'duration_ms', 'energy', 'instrumentalness', 'key', 'liveness', 'loudness', 'mode', 'popularity', 'speechiness', 'tempo', 'time_signature', 'valence'];
+        var scalarCheckboxes = document.getElementsByClassName('scalar-checkbox');
+        for (var i=0; i<scalarCheckboxes.length; i++) {
+            if (scalarCheckboxes[i].checked) {
+                var scalarMin = document.getElementById('min_' + scalarNames[i]).value;
+                var scalarMax = document.getElementById('max_' + scalarNames[i]).value;
+                var scalarTar = document.getElementById('tar_' + scalarNames[i]).value;
+                scalars[i] = [scalarMin, scalarMax, scalarTar];
+            }
+        }
   
         for (var i=0; i<artistCheckboxes.length; i++) {
             if (artistCheckboxes[i].checked) {
@@ -148,15 +160,19 @@ if (error) {
                 tracks = tracks + trackCheckboxes[i].id + ',';
             }
         }
+        // TODO set max_acousticness
 
+        // here all the recommendation fields are filled for the req.query used in app.js
         $.ajax({
             url: '/recommendation',
             data: {
                 'access_token': access_token,
                 'artists': artists,
                 'genres': genres,
-                'tracks': tracks
+                'tracks': tracks,
+                'scalars': scalars,
             }
+        // here all the recommended tracks are configured for how they are to be displayed
         }).done(function(data) {
             var tracks = data.tracks;
             var lastRecommendation = document.getElementById('recommended-list');
