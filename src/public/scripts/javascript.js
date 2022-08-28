@@ -96,7 +96,7 @@ if (error) {
         $('#loggedin').hide();
     }
 
-    document.getElementById('obtain-new-token').addEventListener('click', function() {
+    /*document.getElementById('obtain-new-token').addEventListener('click', function() {
         $.ajax({
             url: '/refresh_token',
             data: {
@@ -119,7 +119,7 @@ if (error) {
                 'access_token': access_token
             }
         });
-    }, false);
+    }, false);*/
 
     // sends access_token with /recommendation query
     document.getElementById('get-recommendation').addEventListener('click', function() {
@@ -160,7 +160,6 @@ if (error) {
                 tracks = tracks + trackCheckboxes[i].id + ',';
             }
         }
-        // TODO set max_acousticness
 
         // here all the recommendation fields are filled for the req.query used in app.js
         $.ajax({
