@@ -88,6 +88,10 @@ driver.get('http://127.0.0.1:8888').then(function(){
         
         // genre test
         .then(() => driver.findElements(By.name('genre-checkbox')))
+        .then((elements) => driver.executeScript("arguments[0].scrollIntoView(true);", elements[0]))
+        .then(() => driver.sleep(1000))
+
+        .then(() => driver.findElements(By.name('genre-checkbox')))
         .then((inputs) => {
             console.log("Genre test");
             return inputs[0].click();

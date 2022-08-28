@@ -18,32 +18,30 @@
         .recommended-track {
             border: 5px solid green;
         }
+
+        .scalar-tools div {
+            display: none;
+        }
     </style>
 </head>
 
   <body>
-    <div class="container">
-      <div id="login">
-        <h1>This is an example of the Authorization Code flow</h1>
-        <a href="/login" class="btn btn-primary" id="login-link">Log in with Spotify</a>
-      </div>
-      <div id="loggedin">
-          <!--<div id="user-profile">
-    </div>-->
-          <div id="oauth">
+      <div class="container">
+          <div id="login">
+              <h1>This is an example of the Authorization Code flow</h1>
+              <a href="/login" class="btn btn-primary" id="login-link">Log in with Spotify</a>
           </div>
-          <div class="row">
-              <div class="col-auto bg-info m-1">
-                  <button class="btn btn-light" id="get-recommendation">Personalized Recommendation</button>
-                  <div id="recommended-list">
-                  </div>
+          <div id="loggedin">
+              <!--<div id="user-profile">
+    </div>-->
+              <div id="oauth">
               </div>
-              <div class="col-auto m-1">
+              <div>
                   <div class="row">
-                      <div class="col-auto bg-info m-1">
-                          <button class="btn btn-light" id="obtain-new-token">Obtain new token using the refresh token</button>
-                          <button class="btn btn-light" id="get-favorite-artists">See your favorite artists</button>
-                      </div>
+                      <!-- <div class="col-auto bg-info m-1">
+                <button class="btn btn-light" id="obtain-new-token">Obtain new token using the refresh token</button>
+                <button class="btn btn-light" id="get-favorite-artists">See your favorite artists</button>
+            </div> -->
                       <!--Menu of tools for recommendations. Value must be given the value of the corresponding tool's index in the tool list-->
                       <div class="col-auto bg-info m-1">
                           <h3>Toggle Tools</h3>
@@ -53,10 +51,34 @@
                           <label class="m-1">Artist Search</label>
                           <input type="checkbox" name="rec-tool-checkbox" id="genre-tool-checkbox" value="2" checked />
                           <label class="m-1">Genre List</label>
-                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="acousticness-tool-checkbox" value="3" checked />
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="acousticness-tool-checkbox" value="3" unchecked />
                           <label class="m-1">Acousticness Scales</label>
-                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="danceability-tool-checkbox" value="3" checked />
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="danceability-tool-checkbox" value="4" unchecked />
                           <label class="m-1">Danceability Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="duration_ms-tool-checkbox" value="5" unchecked />
+                          <label class="m-1">Duration (ms) Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="energy-tool-checkbox" value="6" unchecked />
+                          <label class="m-1">Energy Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="instrumentalness-tool-checkbox" value="7" unchecked />
+                          <label class="m-1">Instrumentalness Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="key-tool-checkbox" value="8" unchecked />
+                          <label class="m-1">Key Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="liveness-tool-checkbox" value="9" unchecked />
+                          <label class="m-1">Liveness Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="loudness-tool-checkbox" value="10" unchecked />
+                          <label class="m-1">Loudness Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="mode-tool-checkbox" value="11" unchecked />
+                          <label class="m-1">Mode Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="popularity-tool-checkbox" value="12" unchecked />
+                          <label class="m-1">Popularity Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="speechiness-tool-checkbox" value="13" unchecked />
+                          <label class="m-1">Speechiness Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="tempo-tool-checkbox" value="14" unchecked />
+                          <label class="m-1">Tempo Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="time-sig-tool-checkbox" value="15" unchecked />
+                          <label class="m-1">Time Signature Scales</label>
+                          <input type="checkbox" name="rec-tool-checkbox" class="scalar-checkbox" id="valence-tool-checkbox" value="16" unchecked />
+                          <label class="m-1">Valence Scales</label>
                       </div>
                   </div>
 
@@ -76,47 +98,198 @@
                           <div id="artist-list">
                           </div>
                       </div>
-                      <div class="col-auto m-1" name="rec-tool" id="genre-tool">
-                          <h4>Genre List</h4>
-                          <div class="row" id="genre-list">
-                              <div class="col-auto" id="genre-list-col-1">
-                              </div>
-                              <div class="col-auto" id="genre-list-col-2">
-                              </div>
-                              <div class="col-auto" id="genre-list-col-3">
-                              </div>
-                          </div>
-                      </div>
                   </div>
-                  <div class="row">
+                  <div class="row scalar-tools">
                       <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="acousticness-tool">
                           <h4>Min/Max/Target Acousticness</h4>
                           <label class="m-1">Min Acousticness</label>
-                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_acousticness" />
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_acousticness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
                           <label class="m-1">Max Acousticness</label>
-                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_acousticness" />
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_acousticness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
                           <label class="m-1">Target Acousticness</label>
-                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_acousticness" />
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_acousticness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
                       </div>
                       <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="danceability-tool">
                           <h4>Min/Max/Target Danceability</h4>
                           <label class="m-1">Min Danceability</label>
-                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_danceability" />
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_danceability" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
                           <label class="m-1">Max Danceability</label>
-                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_danceability" />
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_danceability" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
                           <label class="m-1">Target Danceability</label>
-                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_danceability" />
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_danceability" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="duration_ms-tool">
+                          <h4>Min/Max/Target Duration (ms)</h4>
+                          <label class="m-1">Min Duration (ms)</label>
+                          <input type="range" class="form-range" min="0" max="90000" step="100" value="0" id="min_duration_ms" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Duration (ms)</label>
+                          <input type="range" class="form-range" min="0" max="90000" step="100" value="90000" id="max_duration_ms" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Duration (ms)</label>
+                          <input type="range" class="form-range" min="0" max="90000" step="100" value="45000" id="tar_duration_ms" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="energy-tool">
+                          <h4>Min/Max/Target Energy</h4>
+                          <label class="m-1">Min Energy</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_energy" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Energy</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_energy" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Energy</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_energy" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="instrumentalness-tool">
+                          <h4>Min/Max/Target Instrumentalness</h4>
+                          <label class="m-1">Min Instrumentalness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_instrumentalness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Instrumentalness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_instrumentalness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Instrumentalness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_instrumentalness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="key-tool">
+                          <h4>Min/Max/Target Key</h4>
+                          <label class="m-1">Min Key</label>
+                          <input type="range" class="form-range" min="0" max="11" step="1" value="0" id="min_key" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Key</label>
+                          <input type="range" class="form-range" min="0" max="11" step="1" value="11" id="max_key" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Key</label>
+                          <input type="range" class="form-range" min="0" max="11" step="1" value="6" id="tar_key" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="liveness-tool">
+                          <h4>Min/Max/Target Liveness</h4>
+                          <label class="m-1">Min Liveness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_liveness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Liveness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_liveness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Liveness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_liveness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="loudness-tool">
+                          <h4>Min/Max/Target Loudness</h4>
+                          <label class="m-1">Min Loudness</label>
+                          <input type="range" class="form-range" min="-35" max="0" step="0.1" value="-35" id="min_loudness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Loudness</label>
+                          <input type="range" class="form-range" min="-35" max="0" step="0.1" value="0" id="max_loudness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Loudness</label>
+                          <input type="range" class="form-range" min="-35" max="0" step="0.1" value="-17" id="tar_loudness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="mode-tool">
+                          <h4>Min/Max/Target Mode</h4>
+                          <label class="m-1">Min Mode</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_mode" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Mode</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_mode" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Mode</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_mode" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="popularity-tool">
+                          <h4>Min/Max/Target Popularity</h4>
+                          <label class="m-1">Min Popularity</label>
+                          <input type="range" class="form-range" min="0" max="100" step="1" value="0" id="min_popularity" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Popularity</label>
+                          <input type="range" class="form-range" min="0" max="100" step="1" value="100" id="max_popularity" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Popularity</label>
+                          <input type="range" class="form-range" min="0" max="100" step="1" value="50" id="tar_popularity" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="speechiness-tool">
+                          <h4>Min/Max/Target Speechiness</h4>
+                          <label class="m-1">Min Speechiness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_speechiness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Speechiness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_speechiness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Speechiness</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_speechiness" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="tempo-tool">
+                          <h4>Min/Max/Target Tempo</h4>
+                          <label class="m-1">Min Tempo</label>
+                          <input type="range" class="form-range" min="0" max="200" step="2" value="0" id="min_tempo" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Tempo</label>
+                          <input type="range" class="form-range" min="0" max="200" step="2" value="200" id="max_tempo" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Tempo</label>
+                          <input type="range" class="form-range" min="0" max="200" step="2" value="100" id="tar_tempo" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="time-sig-tool">
+                          <h4>Min/Max/Target Time Signature (beats in a single measure)</h4>
+                          <label class="m-1">Min Time Signature</label>
+                          <input type="range" class="form-range" min="1" max="16" step="1" value="1" id="min_time_sig" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Time Signature</label>
+                          <input type="range" class="form-range" min="1" max="16" step="1" value="16" id="max_time_sig" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Time Signature</label>
+                          <input type="range" class="form-range" min="1" max="16" step="1" value="4" id="tar_time_sig" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                      <div class="col-auto bg-primary text-white m-1" name="rec-tool" id="valence-tool">
+                          <h4>Min/Max/Target Valence</h4>
+                          <label class="m-1">Min Valence</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0" id="min_valence" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Min: <output></output></p>
+                          <label class="m-1">Max Valence</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="1" id="max_valence" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Max: <output></output></p>
+                          <label class="m-1">Target Valence</label>
+                          <input type="range" class="form-range" min="0" max="1" step="0.01" value="0.5" id="tar_valence" oninput="this.nextElementSibling.children[0].value = this.value" />
+                          <p>Target: <output></output></p>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-auto bg-info m-1">
+                      <button class="btn btn-light" id="get-recommendation">Personalized Recommendation</button>
+                      <div id="recommended-list">
+                      </div>
+                  </div>
+                  <div class="col-auto m-1" name="rec-tool" id="genre-tool">
+                      <h4>Genre List</h4>
+                      <div class="row" id="genre-list">
+                          <div class="col-auto" id="genre-list-col-1">
+                          </div>
+                          <div class="col-auto" id="genre-list-col-2">
+                          </div>
+                          <div class="col-auto" id="genre-list-col-3">
+                          </div>
                       </div>
                   </div>
               </div>
           </div>
-          
-          
-
-
-
       </div>
-    </div>
 
     <script id="user-profile-template" type="text/x-handlebars-template">
       <h1>Logged in as {{display_name}}</h1>
